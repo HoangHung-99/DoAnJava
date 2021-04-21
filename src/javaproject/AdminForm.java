@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package javaproject;
+
 import javax.swing.Timer;
 import javax.swing.*;
 import java.awt.*;
@@ -17,11 +18,14 @@ import java.util.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
+
 /**
  *
  * @author nnqua
  */
 public class AdminForm extends javax.swing.JFrame {
+
+    private DefaultListModel model = new DefaultListModel();
 
     public AdminForm() {
         initComponents();
@@ -30,46 +34,83 @@ public class AdminForm extends javax.swing.JFrame {
     }
 
     //Live Date
-    public void liveDate()
-    {
+    public void liveDate() {
         Date d = new Date();
-      
-        
         SimpleDateFormat sdf_date = new SimpleDateFormat("dd/MM/yyyy");
         String dd = sdf_date.format(d);
         lbl_date.setText(dd);
     }
-    
+
     //Live Time
     Timer time;
     SimpleDateFormat sdf_time;
-    public void liveTime()
-    {   
+
+    public void liveTime() {
         time = new Timer(0, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
- 
-        sdf_time = new SimpleDateFormat("HH:mm:ss");
-        Date dt = new Date();
-        String tt = sdf_time.format(dt);
-        lbl_time.setText(tt);
-            
-            
+                //To change body of generated methods, choose Tools | Templates.
+                //throw new UnsupportedOperationException("Not supported yet."); 
+                sdf_time = new SimpleDateFormat("HH:mm:ss");
+                Date dt = new Date();
+                String tt = sdf_time.format(dt);
+                lbl_time.setText(tt);
             }
-        }); 
+        });
         time.start();
     }
-    
-    
-    
-    
-    
+
+    private void addCafeToList() {
+        if (rb_Cafe.isSelected()) {
+            if (buttonGroupCafe.getSelection() != null) {
+                String s = "Cafe";
+                if (chb_Sua.isSelected()) {
+                    s += " Sửa";
+                }
+                if (chb_Phin.isSelected()) {
+                    s += " Phin";
+                }
+                if (chb_Bacxiu.isSelected()) {
+                    s += " Bạc Xỉu";
+                }
+                if (chb_Latte.isSelected()) {
+                    s += " Latte";
+                }
+                if (chb_Espresso.isSelected()) {
+                    s += " Espresso";
+                }
+                if (chb_Cappucino.isSelected()) {
+                    s += " Cappuchino";
+                }
+                if (chb_Mocha.isSelected()) {
+                    s += " Mocha";
+                }
+                ListOrder.setModel(model);
+                model.addElement(s);
+                buttonGroupCafe.clearSelection();
+            } else {
+                JOptionPane.showMessageDialog(this, "Bạn chưa chọn đồ uống");
+            }
+        }
+    }
+
+    public void updateChange() {
+        if (ButtonGroupDrink.getSelection() == null) {
+            JOptionPane.showMessageDialog(this, "Hãy chọn loại đồ uống bạn muốn !");
+        } else {
+            addCafeToList();
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         ButtonGroupDrink = new javax.swing.ButtonGroup();
+        buttonGroupCafe = new javax.swing.ButtonGroup();
+        buttonGroupTequila = new javax.swing.ButtonGroup();
+        buttonGroupMojito = new javax.swing.ButtonGroup();
+        buttonGroupSinhTo = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -444,130 +485,97 @@ public class AdminForm extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thành phần tự chọn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
+        buttonGroupTequila.add(chb_Sunrise);
         chb_Sunrise.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Sunrise.setText("Sunrise");
 
+        buttonGroupTequila.add(chb_Margarita);
         chb_Margarita.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Margarita.setText("Margarita");
-        chb_Margarita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_MargaritaActionPerformed(evt);
-            }
-        });
 
+        buttonGroupTequila.add(chb_Paloma);
         chb_Paloma.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Paloma.setText("Paloma");
-        chb_Paloma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_PalomaActionPerformed(evt);
-            }
-        });
 
+        buttonGroupTequila.add(chb_BraveBull);
         chb_BraveBull.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_BraveBull.setText("Brave Bull");
-        chb_BraveBull.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_BraveBullActionPerformed(evt);
-            }
-        });
 
+        buttonGroupTequila.add(chb_Acapulco);
         chb_Acapulco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Acapulco.setText("Acapulco");
-        chb_Acapulco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_AcapulcoActionPerformed(evt);
-            }
-        });
 
+        buttonGroupMojito.add(chb_Blue);
         chb_Blue.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Blue.setText("Blue");
 
+        buttonGroupMojito.add(chb_PhucBonTu);
         chb_PhucBonTu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_PhucBonTu.setText("Phúc Bồn Tử");
 
+        buttonGroupMojito.add(chb_Vietquat);
         chb_Vietquat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Vietquat.setText("Việt quất");
 
+        buttonGroupMojito.add(chb_Dao);
         chb_Dao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Dao.setText("Đào");
 
+        buttonGroupMojito.add(chb_Kiwi);
         chb_Kiwi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Kiwi.setText("Kiwi Mint");
 
+        buttonGroupSinhTo.add(chb_Bo);
         chb_Bo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Bo.setText("Bơ");
 
+        buttonGroupSinhTo.add(chb_Cam);
         chb_Cam.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Cam.setText("Cam");
 
+        buttonGroupSinhTo.add(chb_Nho);
         chb_Nho.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Nho.setText("Nho");
 
+        buttonGroupSinhTo.add(chb_Duahau);
         chb_Duahau.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Duahau.setText("Dưa hấu");
 
         chb_Dua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Dua.setText("Dừa");
 
+        buttonGroupCafe.add(chb_Sua);
         chb_Sua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Sua.setText("Sữa");
 
+        buttonGroupCafe.add(chb_Phin);
         chb_Phin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Phin.setText("Phin");
-        chb_Phin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_PhinActionPerformed(evt);
-            }
-        });
 
+        buttonGroupCafe.add(chb_Bacxiu);
         chb_Bacxiu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Bacxiu.setText("Bạc xỉu");
-        chb_Bacxiu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_BacxiuActionPerformed(evt);
-            }
-        });
 
+        buttonGroupCafe.add(chb_Latte);
         chb_Latte.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Latte.setText("Latte");
         chb_Latte.setToolTipText("");
-        chb_Latte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_LatteActionPerformed(evt);
-            }
-        });
 
+        buttonGroupCafe.add(chb_Espresso);
         chb_Espresso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Espresso.setText("Espresso");
-        chb_Espresso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_EspressoActionPerformed(evt);
-            }
-        });
 
+        buttonGroupCafe.add(chb_Cappucino);
         chb_Cappucino.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Cappucino.setText("Cappucino");
-        chb_Cappucino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_CappucinoActionPerformed(evt);
-            }
-        });
 
+        buttonGroupCafe.add(chb_Mocha);
         chb_Mocha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Mocha.setText("Mocha");
-        chb_Mocha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_MochaActionPerformed(evt);
-            }
-        });
 
+        buttonGroupTequila.add(chb_Ole);
         chb_Ole.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Ole.setText("Olé");
-        chb_Ole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chb_OleActionPerformed(evt);
-            }
-        });
 
         chb_Xoai.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         chb_Xoai.setText("Xoài");
@@ -855,11 +863,6 @@ public class AdminForm extends javax.swing.JFrame {
         );
 
         ListOrder.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Các món đã chọn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-        ListOrder.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(ListOrder);
 
         btnConfirm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -867,6 +870,11 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Số lượng:");
@@ -982,58 +990,14 @@ public class AdminForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chb_MargaritaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_MargaritaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_MargaritaActionPerformed
-
-    private void chb_PalomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_PalomaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_PalomaActionPerformed
-
-    private void chb_BraveBullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_BraveBullActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_BraveBullActionPerformed
-
-    private void chb_AcapulcoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_AcapulcoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_AcapulcoActionPerformed
-
-    private void chb_PhinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_PhinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_PhinActionPerformed
-
-    private void chb_BacxiuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_BacxiuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_BacxiuActionPerformed
-
-    private void chb_LatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_LatteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_LatteActionPerformed
-
-    private void chb_EspressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_EspressoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_EspressoActionPerformed
-
-    private void chb_CappucinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_CappucinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_CappucinoActionPerformed
-
-    private void chb_MochaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_MochaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_MochaActionPerformed
-
-    private void chb_OleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_OleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chb_OleActionPerformed
-
     private void lbl_CafePhinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_CafePhinMouseClicked
- 
+
         rb_Cafe.setSelected(true);
         chb_Phin.setSelected(true);
     }//GEN-LAST:event_lbl_CafePhinMouseClicked
 
     private void lbl_CafeSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_CafeSuaMouseClicked
-       
+
         rb_Cafe.setSelected(true);
         chb_Sua.setSelected(true);
     }//GEN-LAST:event_lbl_CafeSuaMouseClicked
@@ -1064,7 +1028,7 @@ public class AdminForm extends javax.swing.JFrame {
 
     private void lbl_NuocEpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_NuocEpMouseClicked
         rb_Nuocepsinhto.setSelected(true);
-       
+
     }//GEN-LAST:event_lbl_NuocEpMouseClicked
 
     private void lbl_SinhtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_SinhtoMouseClicked
@@ -1080,8 +1044,10 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_MojitoMouseClicked
 
     private void rb_CafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_CafeActionPerformed
-        if(rb_Cafe.isSelected())
-        {
+        if (rb_Cafe.isSelected()) {
+            buttonGroupTequila.clearSelection();
+            buttonGroupMojito.clearSelection();
+            buttonGroupSinhTo.clearSelection();
             //Phần Cafe -> mở
             chb_Sua.setEnabled(true);
             chb_Phin.setEnabled(true);
@@ -1090,7 +1056,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Espresso.setEnabled(true);
             chb_Cappucino.setEnabled(true);;
             chb_Mocha.setEnabled(true);
-            
+
             //Phần Tequila -> ẩn
             chb_Sunrise.setEnabled(false);
             chb_Margarita.setEnabled(false);
@@ -1113,7 +1079,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Duahau.setEnabled(false);
             chb_Dua.setEnabled(false);
             chb_Xoai.setEnabled(false);
-            
+
             //Khóa phần Topping
             chb_Kem.setEnabled(false);
             chb_Suadac.setEnabled(false);
@@ -1122,12 +1088,14 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Matong.setEnabled(false);
             chb_Hatchia.setEnabled(false);
             chb_BanhFlan.setEnabled(false);
-        }   
+        }
     }//GEN-LAST:event_rb_CafeActionPerformed
 
     private void rb_TequilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_TequilaActionPerformed
-        if(rb_Tequila.isSelected())
-        {
+        if (rb_Tequila.isSelected()) {
+            buttonGroupCafe.clearSelection();
+            buttonGroupMojito.clearSelection();
+            buttonGroupSinhTo.clearSelection();
             //Phần Cafe -> ẩn
             chb_Sua.setEnabled(false);
             chb_Phin.setEnabled(false);
@@ -1136,7 +1104,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Espresso.setEnabled(false);
             chb_Cappucino.setEnabled(false);;
             chb_Mocha.setEnabled(false);
-            
+
             //Phần Tequila -> Mở
             chb_Sunrise.setEnabled(true);
             chb_Margarita.setEnabled(true);
@@ -1159,8 +1127,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Duahau.setEnabled(false);
             chb_Dua.setEnabled(false);
             chb_Xoai.setEnabled(false);
-            
-            
+
             chb_Kem.setEnabled(true);
             chb_Suadac.setEnabled(true);
             chb_Dautay.setEnabled(true);
@@ -1172,9 +1139,11 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_rb_TequilaActionPerformed
 
     private void rb_MojitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_MojitoActionPerformed
-        if(rb_Mojito.isSelected())
-        {
+        if (rb_Mojito.isSelected()) {
             //Phần Cafe -> ẩn
+            buttonGroupCafe.clearSelection();
+            buttonGroupSinhTo.clearSelection();
+            buttonGroupTequila.clearSelection();
             chb_Sua.setEnabled(false);
             chb_Phin.setEnabled(false);
             chb_Bacxiu.setEnabled(false);
@@ -1182,7 +1151,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Espresso.setEnabled(false);
             chb_Cappucino.setEnabled(false);;
             chb_Mocha.setEnabled(false);
-            
+
             //Phần Tequila -> ẩn
             chb_Sunrise.setEnabled(false);
             chb_Margarita.setEnabled(false);
@@ -1205,7 +1174,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Duahau.setEnabled(false);
             chb_Dua.setEnabled(false);
             chb_Xoai.setEnabled(false);
-            
+
             chb_Kem.setEnabled(true);
             chb_Suadac.setEnabled(true);
             chb_Dautay.setEnabled(true);
@@ -1217,8 +1186,10 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_rb_MojitoActionPerformed
 
     private void rb_NuocepsinhtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_NuocepsinhtoActionPerformed
-        if(rb_Nuocepsinhto.isSelected())
-        {
+        if (rb_Nuocepsinhto.isSelected()) {
+            buttonGroupCafe.clearSelection();
+            buttonGroupMojito.clearSelection();
+            buttonGroupTequila.clearSelection();
             //Phần Cafe -> ẩn
             chb_Sua.setEnabled(false);
             chb_Phin.setEnabled(false);
@@ -1227,7 +1198,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Espresso.setEnabled(false);
             chb_Cappucino.setEnabled(false);;
             chb_Mocha.setEnabled(false);
-            
+
             //Phần Tequila -> ẩn
             chb_Sunrise.setEnabled(false);
             chb_Margarita.setEnabled(false);
@@ -1250,7 +1221,7 @@ public class AdminForm extends javax.swing.JFrame {
             chb_Duahau.setEnabled(true);
             chb_Dua.setEnabled(true);
             chb_Xoai.setEnabled(true);
-            
+
             chb_Kem.setEnabled(true);
             chb_Suadac.setEnabled(true);
             chb_Dautay.setEnabled(true);
@@ -1260,6 +1231,11 @@ public class AdminForm extends javax.swing.JFrame {
             chb_BanhFlan.setEnabled(true);
         }
     }//GEN-LAST:event_rb_NuocepsinhtoActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        updateChange();
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1303,6 +1279,10 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnReset;
+    private javax.swing.ButtonGroup buttonGroupCafe;
+    private javax.swing.ButtonGroup buttonGroupMojito;
+    private javax.swing.ButtonGroup buttonGroupSinhTo;
+    private javax.swing.ButtonGroup buttonGroupTequila;
     private javax.swing.JCheckBox chb_7Up;
     private javax.swing.JCheckBox chb_Acapulco;
     private javax.swing.JCheckBox chb_Bacxiu;
