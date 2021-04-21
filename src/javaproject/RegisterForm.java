@@ -5,11 +5,21 @@
  */
 package javaproject;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import model.User;
+
 /**
  *
  * @author nnqua
  */
 public class RegisterForm extends javax.swing.JFrame {
+
+    public static User user_in;
+    public static User user_click;
+    public JDialog call_dialog;
+    public JTable load_tTable;
 
     /**
      * Creates new form RegisterForm
@@ -28,22 +38,21 @@ public class RegisterForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtUsernameLogin = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtUsernameLogin1 = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtUsernameLogin2 = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtUsernameLogin3 = new javax.swing.JTextField();
+        txtPasswordComfirm = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtUsernameLogin4 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtUsernameLogin5 = new javax.swing.JTextField();
+        txtPhone = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        btnLogin = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cbb_gioiTinh = new javax.swing.JComboBox<>();
+        btnDangKy = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,12 +61,7 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 0, 255));
         jLabel1.setText("ĐĂNG KÝ");
 
-        txtUsernameLogin.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        txtUsernameLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameLoginActionPerformed(evt);
-            }
-        });
+        txtName.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel2.setText("Họ tên");
@@ -65,71 +69,39 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel3.setText("Tên tài khoản");
 
-        txtUsernameLogin1.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        txtUsernameLogin1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameLogin1ActionPerformed(evt);
-            }
-        });
+        txtUsername.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel4.setText("Mật khẩu");
 
-        txtUsernameLogin2.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        txtUsernameLogin2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameLogin2ActionPerformed(evt);
-            }
-        });
+        txtPassword.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel5.setText("Xác nhận mật khẩu");
 
-        txtUsernameLogin3.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        txtUsernameLogin3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameLogin3ActionPerformed(evt);
-            }
-        });
+        txtPasswordComfirm.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel6.setText("Email");
 
-        txtUsernameLogin4.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        txtUsernameLogin4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameLogin4ActionPerformed(evt);
-            }
-        });
+        txtEmail.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel7.setText("Số điện thoại");
 
-        txtUsernameLogin5.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        txtUsernameLogin5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameLogin5ActionPerformed(evt);
-            }
-        });
+        txtPhone.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel8.setText("Giới tính");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
+        cbb_gioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ", "Khác" }));
 
-        btnLogin.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btnLogin.setText("Đăng ký");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnDangKy.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnDangKy.setText("Đăng ký");
+        btnDangKy.setPreferredSize(new java.awt.Dimension(100, 31));
+        btnDangKy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
-
-        jCheckBox1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jCheckBox1.setText("Chấp nhận các Điều khoản dịch vụ");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                btnDangKyActionPerformed(evt);
             }
         });
 
@@ -146,44 +118,44 @@ public class RegisterForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(79, 79, 79))
-                                    .addComponent(jLabel5))
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtUsernameLogin2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtUsernameLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUsernameLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addComponent(txtUsernameLogin3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtUsernameLogin4, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel8))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtUsernameLogin5, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jCheckBox1)))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addGap(79, 79, 79))
+                                        .addComponent(jLabel5))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1))
+                                    .addComponent(txtPasswordComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbb_gioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(btnDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -193,76 +165,71 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsernameLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsernameLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsernameLogin2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsernameLogin3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPasswordComfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsernameLogin4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsernameLogin5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbb_gioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsernameLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameLoginActionPerformed
+    private void btnDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameLoginActionPerformed
-
-    private void txtUsernameLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameLogin1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameLogin1ActionPerformed
-
-    private void txtUsernameLogin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameLogin2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameLogin2ActionPerformed
-
-    private void txtUsernameLogin3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameLogin3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameLogin3ActionPerformed
-
-    private void txtUsernameLogin4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameLogin4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameLogin4ActionPerformed
-
-    private void txtUsernameLogin5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameLogin5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameLogin5ActionPerformed
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+        String Ten = txtName.getText();
+        Integer Level = 2;// cấp nhân viên
+        String Username = txtUsername.getText();
+        String Password = txtPassword.getText();
+        String PasswordComfirm = txtPasswordComfirm.getText();
+        String Email = txtEmail.getText();
+        String Phone = txtPhone.getText();
+        String Sex = cbb_gioiTinh.getSelectedItem().toString();
+        User user = new User(user_click.getUserID(), Username, Password, Ten, Level, Phone, Email, Sex);
+        if (!btnDangKy.getText().equals("Cập nhật")) {
+            if (PasswordComfirm == Password) {
+                JOptionPane.showMessageDialog(this, "Mật khẩu nhập sai");
+            } else {
+                if (User.checkEmployeeExist(Username).size() != 0) {
+                    JOptionPane.showMessageDialog(this, "Tên đăng nhập đã tồn tại đã tồn tại vui lòng chọn cập nhật hoặc đổi tên khác!");
+                } else {
+                    if (!User.addUser(user)) {
+                        JOptionPane.showMessageDialog(this, "Thêm người dùng thành công!");
+                        call_dialog.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thêm người dùng thất bại!");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnDangKyActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         System.exit(0);
@@ -304,10 +271,9 @@ public class RegisterForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangKy;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbb_gioiTinh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -316,11 +282,11 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField txtUsernameLogin;
-    private javax.swing.JTextField txtUsernameLogin1;
-    private javax.swing.JTextField txtUsernameLogin2;
-    private javax.swing.JTextField txtUsernameLogin3;
-    private javax.swing.JTextField txtUsernameLogin4;
-    private javax.swing.JTextField txtUsernameLogin5;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtPasswordComfirm;
+    private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
