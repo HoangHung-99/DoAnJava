@@ -39,6 +39,16 @@ public class User {
         this.Email = email;
         this.Sex = sex;
     }
+    
+    public User(String username, String Password, String name, Integer lv,String phone,String email,String sex) {
+        this.Username = username;
+        this.Password = Password;
+        this.Name = name;
+        this.Level = lv;
+        this.Phone = phone;
+        this.Email = email;
+        this.Sex = sex;
+    }
 
     public Integer getUserID() {
         return UserID;
@@ -83,11 +93,34 @@ public class User {
         this.Level = Level;
     }
 
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
+    }
+    public String getEmail() {
+        return Email;
+    }
+    
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+    
+    public String getSex() {
+        return Sex;
+    }
+    
+    public void setSex(String Sex) {
+        this.Sex = Sex;
+    }
+    
     public static boolean addUser(User user) {
         try {
             Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
             Statement stmt = conn.createStatement();
-            String stament = "INSERT INTO login(Username, Password, Name, Level) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getName() + "', " + user.getLevel() + ")";
+            String stament = "INSERT INTO login(Username,Password,Name,Sex,Phone,Email,Level) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','" + user.getName() + "','" + user.getSex() + "','" + user.getPhone()+ "','" + user.getEmail()+ "'," + user.getLevel()+ ")";
             System.out.println(stament);
             boolean rs;
             rs = stmt.execute(stament);

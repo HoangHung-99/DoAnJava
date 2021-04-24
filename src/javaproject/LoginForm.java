@@ -8,6 +8,8 @@ package javaproject;
 import java.util.*;
 import java.io.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import static java.awt.image.ImageObserver.HEIGHT;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,7 +32,7 @@ public class LoginForm extends javax.swing.JFrame {
         String username = txtUsernameLogin.getText().toLowerCase();
         String password = txtPasswordLogin.getText().toLowerCase();
         if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Hãy nhập thông tin vào!");
+            JOptionPane.showMessageDialog(this, "Hãy nhập thông tin vào!");
         } else {
             try {
                 User user = User.checkLogin(username, password);
@@ -38,10 +40,10 @@ public class LoginForm extends javax.swing.JFrame {
                     new AdminForm().setVisible(true);
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Check your username and password again", "Error", HEIGHT);
+                    JOptionPane.showMessageDialog(this, "Check your username and password again", "Error", HEIGHT);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Check your username and password again", "Error", HEIGHT);
+                JOptionPane.showMessageDialog(this, "Check your username and password again", "Error", HEIGHT);
             }
         }
     }
@@ -65,8 +67,6 @@ public class LoginForm extends javax.swing.JFrame {
         chboxShowPass = new javax.swing.JCheckBox();
         chboxRememberPass = new javax.swing.JCheckBox();
         txtPasswordLogin = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
-        btnDangKyLogin = new javax.swing.JButton();
 
         jLabel5.setText("jLabel5");
 
@@ -118,17 +118,6 @@ public class LoginForm extends javax.swing.JFrame {
 
         txtPasswordLogin.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jLabel4.setText("Bạn chưa có tài khoản ?");
-
-        btnDangKyLogin.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btnDangKyLogin.setText("Đăng ký");
-        btnDangKyLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangKyLoginActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,20 +135,14 @@ public class LoginForm extends javax.swing.JFrame {
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtUsernameLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                            .addComponent(txtPasswordLogin))
-                        .addComponent(btnDangKyLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPasswordLogin))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
+                .addContainerGap(167, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(241, 241, 241))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLogin)
-                            .addComponent(jLabel1))
-                        .addGap(155, 155, 155))))
+                    .addComponent(btnLogin)
+                    .addComponent(jLabel1))
+                .addGap(155, 155, 155))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,11 +165,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(btnDangKyLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-                .addGap(51, 51, 51))
+                .addContainerGap())
         );
 
         pack();
@@ -199,7 +178,6 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         login();
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsernameLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameLoginActionPerformed
@@ -213,10 +191,6 @@ public class LoginForm extends javax.swing.JFrame {
             txtPasswordLogin.setEchoChar('*');
         }
     }//GEN-LAST:event_chboxShowPassActionPerformed
-
-    private void btnDangKyLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDangKyLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,16 +206,24 @@ public class LoginForm extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -254,7 +236,6 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDangKyLogin;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JCheckBox chboxRememberPass;
@@ -262,7 +243,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField txtPasswordLogin;
     private javax.swing.JTextField txtUsernameLogin;
