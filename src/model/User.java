@@ -50,6 +50,10 @@ public class User {
         this.Sex = sex;
     }
 
+    public User(Integer userIDbyName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getUserID() {
         return UserID;
     }
@@ -151,6 +155,7 @@ public class User {
 
     }
 
+
     public static boolean deleteUser(User user) {
         try {
             Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
@@ -166,7 +171,31 @@ public class User {
             ex.printStackTrace();
             return false;
         }
-
+    }
+    
+    public static ArrayList<User> getSearchUser(String data){
+        try {
+               Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
+               Statement stmt = conn.createStatement();
+               String stament = "select * from login WHERE Name LIKE '%"+data+"%'  or Username LIKE '%"+data+"%'  or Level LIKE '%"+data+"%' ";
+               System.out.println(stament);
+               ResultSet rs = stmt.executeQuery(stament);
+               // show data
+               ArrayList<User> array = new ArrayList<User>();
+               while (rs.next()) {
+                   
+                   User product = new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8));
+                   
+                   array.add(product);
+               }
+               // close connection
+               
+               conn.close();
+               return array;
+           } catch (Exception ex) {
+               ex.printStackTrace();
+           }
+        return null;
     }
 
     public static User checkLogin(String username, String password) {
@@ -251,31 +280,6 @@ public class User {
         }
         return null;
     }
-
-//    public static ArrayList<User> getSearchUser(String data) {
-//        try {
-//            Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
-//            Statement stmt = conn.createStatement();
-//            String stament = "select * from login WHERE Name LIKE '%" + data + "%'  or Username LIKE '%" + data + "%'  or Level LIKE '%" + data + "%' ";
-//            System.out.println(stament);
-//            ResultSet rs = stmt.executeQuery(stament);
-//            // show data
-//            ArrayList<User> array = new ArrayList<User>();
-//            while (rs.next()) {
-//
-//                User product = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
-//
-//                array.add(product);
-//            }
-//            // close connection
-//
-//            conn.close();
-//            return array;
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return null;
-//    }
 
     public static ArrayList<User> checkEmployeeExist(String name) {
         try {

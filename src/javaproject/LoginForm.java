@@ -5,13 +5,7 @@
  */
 package javaproject;
 
-import java.util.*;
-import java.io.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import static java.awt.image.ImageObserver.HEIGHT;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.User;
 
