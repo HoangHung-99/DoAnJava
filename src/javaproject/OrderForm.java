@@ -172,6 +172,11 @@ public class OrderForm extends javax.swing.JFrame {
         btnThanhToan.setText("Thanh toán");
 
         btnChonXoa.setText("Chọn xóa");
+        btnChonXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -231,6 +236,10 @@ public class OrderForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnChonXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnChonXoaActionPerformed
 
     /**
      * @param args the command line arguments
