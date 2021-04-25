@@ -29,7 +29,10 @@ public class Order {
         this.Total = Total;
     }
 
-    public Order() {
+    public Order(String datetime, String Detail, Double Total) {
+        this.datetime = datetime;
+        this.Detail = Detail;
+        this.Total = Total;
     }
 
     public Integer getID() {
@@ -47,8 +50,6 @@ public class Order {
     public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
-
-    
 
     public String getDetail() {
         return Detail;
@@ -69,8 +70,8 @@ public class Order {
         try {
                Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
                Statement stmt = conn.createStatement();
-               String stament = "INSERT INTO Order(Date,Detail,Total) VALUES  ('"+receipt.getDatetime()+"','"+receipt.getDetail()+"', "+receipt.getTotal()+")";
-               System.out.println(stament);
+               String stament = "INSERT INTO Receipt(Date,Detail,Total) VALUES('"+receipt.getDatetime()+"','"+receipt.getDetail()+"', "+receipt.getTotal()+")";
+//               System.out.println(stament);
                boolean rs;
                rs = stmt.execute(stament);
                
@@ -82,23 +83,7 @@ public class Order {
         return false;
         
     }
-    
-    public static boolean deleteOrder(Integer id){
-        try {
-               Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
-               Statement stmt = conn.createStatement();
-               String stament = "DELETE FROM product WHERE ID='"+id+"'";
-               System.out.println(stament);
-               boolean rs;
-               rs = stmt.execute(stament);
-               conn.close();
-               return rs;
-           } catch (Exception ex) {
-               ex.printStackTrace();
-           }
-        return false;
-        
-    }
+
     
     public static ArrayList<Order> getOrder(){
         try {

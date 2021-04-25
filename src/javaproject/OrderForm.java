@@ -7,11 +7,16 @@ package javaproject;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.Category;
@@ -22,15 +27,22 @@ import model.Product;
  * @author Thinh
  */
 public class OrderForm extends javax.swing.JFrame {
+
     private JButton[] ListButton;
-    public Double Sum=0.0;
+    public Double Sum = 0.0;
     public ArrayList<HashMap> ReceiptList;
     public ArrayList<String> ordered;
+    public DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy ");
+    public LocalDateTime now = LocalDateTime.now();
+    public String DescriptionReceipt;
+    public JDialog kill_dialog;
+
     /**
      * Creates new form OrderForm
      */
     public OrderForm() {
         initComponents();
+        btnChonXoa.setEnabled(false);
         ordered = new ArrayList<String>(); // Lưu sản phẩm đã order
         //List Receipt
         ReceiptList = new ArrayList<HashMap>();
@@ -40,50 +52,50 @@ public class OrderForm extends javax.swing.JFrame {
             JPanel temp_Panel = new JPanel();
             ArrayList<Product> arrayproduct = Product.getProductbyCateID(cate_id);
             ListButton = new JButton[arrayproduct.size()];
-            Integer rows=1;
+            Integer rows = 1;
             Integer columns = 5;
-            Integer count_prod=0;
+            Integer count_prod = 0;
             //iNITIALIZE ROW OF PRODUCT
             for (int item = 1; item < arrayproduct.size(); item++) {
-                if(item%columns==0){
-                    rows=rows+1;
+                if (item % columns == 0) {
+                    rows = rows + 1;
                 }
             }
-            temp_Panel.setLayout(new GridLayout(rows,columns));
+            temp_Panel.setLayout(new GridLayout(rows, columns));
             for (int i = 0; i < rows; i++) {
-                for(int j=0;j < 5;j++){
-                    if(count_prod==arrayproduct.size()){
+                for (int j = 0; j < 5; j++) {
+                    if (count_prod == arrayproduct.size()) {
                         break;
-                    }else{
+                    } else {
                         Product p;
                         p = new Product();
                         p = arrayproduct.get(count_prod);
                         String name = p.getName();
-                        System.out.println(name);
-                        System.out.println(count_prod);
+//                        System.out.println(name);
+//                        System.out.println(count_prod);
                         Double price = p.getPrice();
                         ListButton[count_prod] = new javax.swing.JButton();
                         ListButton[count_prod].setText(p.getName());
                         ListButton[count_prod].setVisible(true);
                         ListButton[count_prod].setPreferredSize(new Dimension(40, 40));
-                        ListButton[count_prod].addActionListener(new ActionListener(){
+                        ListButton[count_prod].addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                 HashMap<String, String> data = new HashMap<String, String>();
                                 data.put("Name", name);
-                                data.put("SL","1");
+                                data.put("SL", "1");
                                 data.put("Price", price.toString());
 
-                                if(!ordered.contains(name)){
+                                if (!ordered.contains(name)) {
                                     ordered.add(name);
                                     ReceiptList.add(data);
-                                }else{
-                                    for(int i =0; i < ReceiptList.size(); i++) {
-                                    HashMap<String, String> receipt_item = ReceiptList.get(i);
-                                    if (data.get("Name").equals(receipt_item.get("Name"))) {
-                                         Integer ex_SL = Integer.valueOf(receipt_item.get("SL"));
-                                         ex_SL = ex_SL+1;
-                                         receipt_item.replace("SL", ex_SL.toString());
-                                    }   
+                                } else {
+                                    for (int i = 0; i < ReceiptList.size(); i++) {
+                                        HashMap<String, String> receipt_item = ReceiptList.get(i);
+                                        if (data.get("Name").equals(receipt_item.get("Name"))) {
+                                            Integer ex_SL = Integer.valueOf(receipt_item.get("SL"));
+                                            ex_SL = ex_SL + 1;
+                                            receipt_item.replace("SL", ex_SL.toString());
+                                        }
                                     }
                                 }
                                 DefaultTableModel tbHoaDon = (DefaultTableModel) tb_HoaDon.getModel();
@@ -91,26 +103,32 @@ public class OrderForm extends javax.swing.JFrame {
                                 for (int i = tbHoaDon.getRowCount() - 1; i >= 0; i--) {
                                     tbHoaDon.removeRow(i);
                                 }
-                                for(int i =0; i < ReceiptList.size(); i++) {
+                                for (int i = 0; i < ReceiptList.size(); i++) {
                                     HashMap<String, String> receipt = ReceiptList.get(i);
-                                    Object[] tb_row = {receipt.get("Name"),Integer.parseInt(receipt.get("SL")) ,Double.parseDouble(receipt.get("Price"))};
+                                    Object[] tb_row = {receipt.get("Name"), Integer.parseInt(receipt.get("SL")), Double.parseDouble(receipt.get("Price"))};
                                     tbHoaDon.addRow(tb_row);
                                 }
 
-
-                                Sum=Sum+price;
+                                Sum = Sum + price;
                                 txtTongTien.setText(Sum.toString());
                             }
                         });
-                        temp_Panel.add(ListButton[count_prod],i,j);
+                        temp_Panel.add(ListButton[count_prod], i, j);
                         count_prod++;
+                    }
+
                 }
-                
+                tabPanel.addTab(listOfCategory.get(index).getName(), temp_Panel);
+
             }
-            tabPanel.addTab(listOfCategory.get(index).getName(), temp_Panel);
-            
         }
+    }
+
+    private void layItemDuocChon() {
+        if (tb_HoaDon.getSelectedRow() < 0) {
+            return;
         }
+        int row = tb_HoaDon.getSelectedRow();
     }
 
     /**
@@ -140,15 +158,20 @@ public class OrderForm extends javax.swing.JFrame {
 
         tb_HoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tên", "Số lượng", "Giá"
             }
         ));
+        tb_HoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_HoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tb_HoaDon);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -169,8 +192,18 @@ public class OrderForm extends javax.swing.JFrame {
         jLabel1.setText("Tổng tiền");
 
         btnThanhToan.setText("Thanh toán");
+        btnThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThanhToanMouseClicked(evt);
+            }
+        });
 
         btnChonXoa.setText("Chọn xóa");
+        btnChonXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -230,6 +263,29 @@ public class OrderForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tb_HoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_HoaDonMouseClicked
+        // TODO add your handling code here:
+        layItemDuocChon();
+        btnChonXoa.setEnabled(true);
+    }//GEN-LAST:event_tb_HoaDonMouseClicked
+
+    private void btnChonXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonXoaActionPerformed
+        // TODO add your handling code here:
+        int row = tb_HoaDon.getSelectedRow();
+        int maNV_to_del = (int) tb_HoaDon.getValueAt(row, 0);
+
+    }//GEN-LAST:event_btnChonXoaActionPerformed
+
+    private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
+        // TODO add your handling code here:;
+        try {
+            new OrderPrint(ReceiptList, Sum, tb_HoaDon, ordered, txtTongTien);
+            Sum = 0.0;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnThanhToanMouseClicked
 
     /**
      * @param args the command line arguments
