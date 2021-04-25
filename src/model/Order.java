@@ -126,7 +126,7 @@ public class Order {
         try {
                Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
                Statement stmt = conn.createStatement();
-               String stament = "select * from Order WHERE ID LIKE '%"+data+"%'  or Date LIKE '%"+data+"%'  or Detail LIKE '%"+data+"%' or Total LIKE '%"+data+"%' ";
+               String stament = "select * from receipt WHERE ID LIKE '%"+data+"%'  or Date LIKE '%"+data+"%'  or Detail LIKE '%"+data+"%' or Total LIKE '%"+data+"%' ";
                System.out.println(stament);
                ResultSet rs = stmt.executeQuery(stament);
                // show data

@@ -5,17 +5,67 @@
  */
 package javaproject;
 
+import static database.Connectdb.DB_URL;
+import static database.Connectdb.PASS_WORD;
+import static database.Connectdb.USER_NAME;
+import java.sql.Connection;
+import static java.sql.DriverManager.getConnection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Order;
+
 /**
  *
  * @author HoangHung
  */
 public class AdminForm extends javax.swing.JFrame {
 
+    private String sLoiNapDuLieu = "Lỗi nạp dữ liệu.";
+    private String sLuuThanhCong = "Lưu dữ liệu thành công.";
+    private String sLuuKhongThanhCong = "Lưu dữ liệu không thành công.";
+
     /**
      * Creates new form AdminForm
      */
     public AdminForm() {
         initComponents();
+        NapDataVaoTable();
+    }
+
+    private void NapDataVaoTable() {
+        try {
+            DefaultTableModel modelTable = new DefaultTableModel();
+            Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
+            Statement stmt = conn.createStatement();
+            String sSelect = "SELECT ID,Date,Detail,Total From receipt";
+            ResultSet rs;
+            rs = stmt.executeQuery(sSelect);
+            if (rs == null) {
+                JOptionPane.showMessageDialog(this, sLoiNapDuLieu);
+                return;
+            }
+            ResultSetMetaData md = rs.getMetaData();
+            int numCols = md.getColumnCount();
+            Object[] arr = new Object[numCols];
+            for (int i = 0; i < numCols; i++) {
+                arr[i] = md.getColumnName(i + 1);
+            }
+            modelTable.setColumnIdentifiers(arr);
+
+            while (rs.next()) {
+                for (int i = 0; i < numCols; i++) {
+                    arr[i] = rs.getObject(i + 1);
+                }
+                modelTable.addRow(arr);
+            }
+            tbQL.setModel(modelTable);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, sLoiNapDuLieu);
+        }
     }
 
     /**
@@ -46,6 +96,11 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel1.setText("Tìm kiếm:");
 
         btnSearch.setText("Tìm kiếm");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -108,9 +163,9 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(btnCategory)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNhanVien)
-                .addGap(85, 85, 85)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,8 +173,8 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                     .addComponent(btnCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -143,12 +198,12 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,6 +237,27 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ProductManage().setVisible(true);
     }//GEN-LAST:event_btnProductActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtSearch.getText().toLowerCase();
+        try {
+                ArrayList<Order> data_receive = Order.getSearchOrder(keyword);
+                DefaultTableModel data_table = (DefaultTableModel) tbQL.getModel();
+
+                for (int i = data_table.getRowCount() - 1; i >= 0; i--) {
+                    data_table.removeRow(i);
+                }
+                //
+                for(int i =0; i < data_receive.size(); i++) {
+                    Order receipt = data_receive.get(i);
+                    Object[] tb_row = {receipt.getID(),receipt.getDatetime(),receipt.getDetail(),receipt.getTotal()};
+                    data_table.addRow(tb_row);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
