@@ -24,12 +24,12 @@ public class User {
     private String Name;
     private String Username;
     private String Password;
-    private Integer Level;
+    private String Level;
     private String Phone;
     private String Email;
     private String Sex;
 
-    public User(Integer id, String username, String Password, String name, Integer lv,String phone,String email,String sex) {
+    public User(Integer id, String username, String Password, String name, String lv,String phone,String email,String sex) {
         this.UserID = id;
         this.Username = username;
         this.Password = Password;
@@ -40,7 +40,7 @@ public class User {
         this.Sex = sex;
     }
     
-    public User(String username, String Password, String name, Integer lv,String phone,String email,String sex) {
+    public User(String username, String Password, String name, String lv,String phone,String email,String sex) {
         this.Username = username;
         this.Password = Password;
         this.Name = name;
@@ -48,10 +48,6 @@ public class User {
         this.Phone = phone;
         this.Email = email;
         this.Sex = sex;
-    }
-
-    public User(Integer userIDbyName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getUserID() {
@@ -89,11 +85,11 @@ public class User {
         this.Password = Password;
     }
 
-    public Integer getLevel() {
+    public String getLevel() {
         return Level;
     }
 
-    public void setLevel(Integer Level) {
+    public void setLevel(String Level) {
         this.Level = Level;
     }
 
@@ -124,7 +120,7 @@ public class User {
         try {
             Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
             Statement stmt = conn.createStatement();
-            String stament = "INSERT INTO login(Username,Password,Name,Sex,Phone,Email,Level) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','" + user.getName() + "','" + user.getSex() + "','" + user.getPhone()+ "','" + user.getEmail()+ "'," + user.getLevel()+ ")";
+            String stament = "INSERT INTO login(Username,Password,Name,Sex,Phone,Email,Level) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','" + user.getName() + "','" + user.getSex() + "','" + user.getPhone()+ "','" + user.getEmail()+ "','" + user.getLevel() + "')";
             System.out.println(stament);
             boolean rs;
             rs = stmt.execute(stament);
@@ -184,7 +180,7 @@ public class User {
                ArrayList<User> array = new ArrayList<User>();
                while (rs.next()) {
                    
-                   User product = new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8));
+                   User product = new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
                    
                    array.add(product);
                }
@@ -215,7 +211,7 @@ public class User {
                     user.setUsername(rs.getString(2));
                     user.setPassword(rs.getString(3));
                     user.setName(rs.getString(4));
-                    user.setLevel(rs.getInt(5));
+                    user.setLevel(rs.getString(5));
                     return user;
                 } else {
                     return null;
@@ -245,7 +241,7 @@ public class User {
                 user.setUsername(rs.getString(2));
                 user.setPassword(rs.getString(3));
                 user.setName(rs.getString(4));
-                user.setLevel(rs.getInt(5));
+                user.setLevel(rs.getString(5));
                 array.add(user);
 
             }
@@ -297,7 +293,7 @@ public class User {
                 user.setUsername(rs.getString(2));
                 user.setPassword(rs.getString(3));
                 user.setName(rs.getString(4));
-                user.setLevel(rs.getInt(5));
+                user.setLevel(rs.getString(5));
                 array.add(user);
 
             }

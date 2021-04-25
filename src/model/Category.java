@@ -36,9 +36,13 @@ public class Category {
         this.Name = Name;
     }
 
-    
+//    code như cẹc
+    public Category(){
+        
+    }
 
-    public Category() {
+    public Category(String Name) {
+        this.Name = Name;
     }
     public Category(Integer id,String name) {
         this.CateID = id;
@@ -64,11 +68,11 @@ public class Category {
         
     }
     
-    public static int updateCategory(String name, Integer id){
+    public static int updateCategory(Category cate){
         try {
                Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
                Statement stmt = conn.createStatement();
-               String stament = "UPDATE Category SET Name='"+name+"' WHERE ID="+id+"";
+               String stament = "UPDATE Category SET Name='"+cate.getName()+"' WHERE ID="+cate.getCateID();
                System.out.println(stament);
                int rs = stmt.executeUpdate(stament);
                
@@ -100,11 +104,11 @@ public class Category {
         
     }
     
-    public static boolean deleteProductbyCateID(Integer id){
+    public static boolean deleteProductbyCateID(Category cate){
         try {
                Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
                Statement stmt = conn.createStatement();
-               String stament = "DELETE FROM product WHERE CategoryID="+id+"";
+               String stament = "DELETE FROM product WHERE CategoryID="+cate.getCateID()+"";
                System.out.println(stament);
                boolean rs;
                rs = stmt.execute(stament);

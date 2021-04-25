@@ -6,7 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -154,11 +154,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="S&#x1ea3;n ph&#x1ea9;m"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCategory">
           <Properties>
             <Property name="text" type="java.lang.String" value="Danh m&#x1ee5;c s&#x1ea3;n ph&#x1ea9;m"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCategoryActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnNhanVien">
           <Properties>

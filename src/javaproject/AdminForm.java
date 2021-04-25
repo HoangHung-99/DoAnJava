@@ -75,8 +75,18 @@ public class AdminForm extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh mục"));
 
         btnProduct.setText("Sản phẩm");
+        btnProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductActionPerformed(evt);
+            }
+        });
 
         btnCategory.setText("Danh mục sản phẩm");
+        btnCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoryActionPerformed(evt);
+            }
+        });
 
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -155,12 +165,23 @@ public class AdminForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         // TODO add your handling code here:
         new UserManager().setVisible(true);
     }//GEN-LAST:event_btnNhanVienActionPerformed
+
+    private void btnCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoryActionPerformed
+        // TODO add your handling code here:
+        new CategoryManage().setVisible(true);
+    }//GEN-LAST:event_btnCategoryActionPerformed
+
+    private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed
+        // TODO add your handling code here:
+        new ProductManage().setVisible(true);
+    }//GEN-LAST:event_btnProductActionPerformed
 
     /**
      * @param args the command line arguments

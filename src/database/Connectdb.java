@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Connectdb {
     public static String DB_URL = "jdbc:mysql://localhost:3306/java";
     public static String USER_NAME = "root";
-    public static String PASS_WORD = "1234";
+    public static String PASS_WORD = "246809";
     private Connection conn;
 
 //    public static Connection getConnection(String dbURL, String userName,
