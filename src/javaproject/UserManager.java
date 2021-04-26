@@ -220,6 +220,11 @@ public class UserManager extends javax.swing.JFrame {
         });
 
         btnExit.setText("Thoát");
+        btnExit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnExitKeyPressed(evt);
+            }
+        });
 
         btnAdd.setText("Thêm");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -354,6 +359,10 @@ public class UserManager extends javax.swing.JFrame {
         btnCancel.setEnabled(false);
         btnSave.setEnabled(false);
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnExitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExitKeyPressed
+        this.dispose();
+    }//GEN-LAST:event_btnExitKeyPressed
 
     /**
      * @param args the command line arguments

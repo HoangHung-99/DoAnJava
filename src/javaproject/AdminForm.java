@@ -8,13 +8,18 @@ package javaproject;
 import static database.Connectdb.DB_URL;
 import static database.Connectdb.PASS_WORD;
 import static database.Connectdb.USER_NAME;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import static java.sql.DriverManager.getConnection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import model.Order;
 
@@ -33,7 +38,27 @@ public class AdminForm extends javax.swing.JFrame {
      */
     public AdminForm() {
         initComponents();
+        getDate();
+        getTime();
         NapDataVaoTable();
+    }
+
+    public void getDate() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        lbl_date.setText(dateFormat.format(date));
+    }
+
+    public void getTime() {
+        new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                lbl_time.setText(dateFormat.format(date));
+            }
+        }).start();
     }
 
     private void NapDataVaoTable() {
@@ -81,6 +106,9 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        lbl_date = new javax.swing.JLabel();
+        lbl_time = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnProduct = new javax.swing.JButton();
         btnCategory = new javax.swing.JButton();
@@ -103,18 +131,32 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Date :");
+
+        lbl_date.setText("0");
+
+        lbl_time.setText("0");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearch)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 88, Short.MAX_VALUE))
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSearch)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 132, Short.MAX_VALUE))
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_time, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -125,11 +167,18 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch)
-                .addGap(0, 110, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lbl_date)
+                    .addComponent(lbl_time)))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh mục", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
+        btnProduct.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnProduct.setForeground(new java.awt.Color(204, 0, 0));
+        btnProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image_Icon/drink.png"))); // NOI18N
         btnProduct.setText("Sản phẩm");
         btnProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +186,9 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        btnCategory.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnCategory.setForeground(new java.awt.Color(204, 0, 0));
+        btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image_Icon/category.png"))); // NOI18N
         btnCategory.setText("Danh mục sản phẩm");
         btnCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +196,9 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        btnNhanVien.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnNhanVien.setForeground(new java.awt.Color(204, 0, 0));
+        btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image_Icon/admin.png"))); // NOI18N
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +206,15 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        btnLogout.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(0, 0, 204));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image_Icon/logout.png"))); // NOI18N
         btnLogout.setText("Đăng xuất");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,22 +223,23 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnProduct)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnCategory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(btnNhanVien)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogout)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(btnCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -200,7 +264,7 @@ public class AdminForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -237,22 +301,27 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String keyword = txtSearch.getText().toLowerCase();
         try {
-                ArrayList<Order> data_receive = Order.getSearchOrder(keyword);
-                DefaultTableModel data_table = (DefaultTableModel) tbQL.getModel();
+            ArrayList<Order> data_receive = Order.getSearchOrder(keyword);
+            DefaultTableModel data_table = (DefaultTableModel) tbQL.getModel();
 
-                for (int i = data_table.getRowCount() - 1; i >= 0; i--) {
-                    data_table.removeRow(i);
-                }
-                //
-                for(int i =0; i < data_receive.size(); i++) {
-                    Order receipt = data_receive.get(i);
-                    Object[] tb_row = {receipt.getID(),receipt.getDatetime(),receipt.getDetail(),receipt.getTotal()};
-                    data_table.addRow(tb_row);
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            for (int i = data_table.getRowCount() - 1; i >= 0; i--) {
+                data_table.removeRow(i);
             }
+            //
+            for (int i = 0; i < data_receive.size(); i++) {
+                Order receipt = data_receive.get(i);
+                Object[] tb_row = {receipt.getID(), receipt.getDatetime(), receipt.getDetail(), receipt.getTotal()};
+                data_table.addRow(tb_row);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        this.dispose();
+        new LoginForm().setVisible(true);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,9 +365,12 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnProduct;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_date;
+    private javax.swing.JLabel lbl_time;
     private javax.swing.JTable tbQL;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
