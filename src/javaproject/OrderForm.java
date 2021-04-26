@@ -34,7 +34,7 @@ public class OrderForm extends javax.swing.JFrame {
     public DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy ");
     public LocalDateTime now = LocalDateTime.now();
     public String DescriptionReceipt;
-    public JDialog kill_dialog;
+//    public JDialog kill_dialog;
 
     /**
      * Creates new form OrderForm
@@ -168,11 +168,6 @@ public class OrderForm extends javax.swing.JFrame {
                 "Tên", "Số lượng", "Giá"
             }
         ));
-        tb_HoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tb_HoaDonMouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(tb_HoaDon);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
