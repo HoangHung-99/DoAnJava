@@ -5,17 +5,91 @@
  */
 package javaproject;
 
+import com.mysql.cj.result.Row;
+import static database.Connectdb.DB_URL;
+import static database.Connectdb.PASS_WORD;
+import static database.Connectdb.USER_NAME;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import static java.sql.DriverManager.getConnection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+
 /**
  *
  * @author HoangHung
  */
 public class Status extends javax.swing.JFrame {
 
+    private String sLoiNapDuLieu = "Lỗi nạp dữ liệu.";
+    private String sLuuThanhCong = "Lưu dữ liệu thành công.";
+    private String sLuuKhongThanhCong = "Lưu dữ liệu không thành công.";
+
+    String sSelect = "SELECT ID,Date,Detail,Total From receipt";
+
     /**
      * Creates new form Status
      */
+
     public Status() {
         initComponents();
+        NapDataVaoTable(sSelect);
+    }
+
+    public void openFile(String file) {
+        try {
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "ERROR");
+        }
+    }
+
+    private void NapDataVaoTable(String string) {
+        try {
+            DefaultTableModel modelTable = new DefaultTableModel();
+            Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
+            Statement stmt = conn.createStatement();
+            ResultSet rs;
+            rs = stmt.executeQuery(sSelect);
+            if (rs == null) {
+                JOptionPane.showMessageDialog(this, sLoiNapDuLieu);
+                return;
+            }
+
+            ResultSetMetaData md = rs.getMetaData();
+            int numCols = md.getColumnCount();
+            Object[] arr = new Object[numCols];
+            for (int i = 0; i < numCols; i++) {
+                arr[i] = md.getColumnName(i + 1);
+            }
+            modelTable.setColumnIdentifiers(arr);
+
+            while (rs.next()) {
+                for (int i = 0; i < numCols; i++) {
+                    arr[i] = rs.getObject(i + 1);
+                }
+                modelTable.addRow(arr);
+            }
+            tbQL.setModel(modelTable);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, sLoiNapDuLieu);
+        }
     }
 
     /**
@@ -28,37 +102,54 @@ public class Status extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        tbQL = new javax.swing.JTable();
+        btnTang = new javax.swing.JButton();
+        btnGiam = new javax.swing.JButton();
+        btnSortNgay = new javax.swing.JButton();
+        btnSortThang = new javax.swing.JButton();
+        btnInTK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbQL.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbQL);
 
-        jButton1.setText("Tăng dần");
+        btnTang.setText("Tăng dần");
+        btnTang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTangActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Giảm dần");
+        btnGiam.setText("Giảm dần");
+        btnGiam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGiamActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Theo ngày");
+        btnSortNgay.setText("Theo ngày");
+        btnSortNgay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortNgayActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Theo tháng");
+        btnSortThang.setText("Theo tháng");
 
-        jButton5.setText("In bảng thống kê");
+        btnInTK.setText("In bảng thống kê");
+        btnInTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInTKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,11 +159,11 @@ public class Status extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnGiam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSortNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSortThang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInTK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -80,19 +171,88 @@ public class Status extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnTang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnGiam)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnSortNgay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnSortThang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5))
+                .addComponent(btnInTK))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTangActionPerformed
+        sSelect = "SELECT ID,Date,Detail,Total From receipt ORDER BY Total ASC";
+        NapDataVaoTable(sSelect);
+    }//GEN-LAST:event_btnTangActionPerformed
+
+    private void btnGiamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiamActionPerformed
+        sSelect = "SELECT ID,Date,Detail,Total From receipt ORDER BY Total DESC";
+        NapDataVaoTable(sSelect);
+    }//GEN-LAST:event_btnGiamActionPerformed
+
+    private void btnSortNgayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortNgayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSortNgayActionPerformed
+
+    private void btnInTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInTKActionPerformed
+        try {
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.showSaveDialog(this);
+            File saveFile = jFileChooser.getSelectedFile();
+
+            if (saveFile != null) {
+                saveFile = new File(saveFile.toString() + ".xlsx");
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                XSSFSheet sheet = workbook.createSheet("thongke");
+                XSSFRow rowCol = sheet.createRow(0);
+                
+                XSSFCell cell1 = rowCol.createCell(0, CellType.NUMERIC);
+                cell1.setCellValue("ID");
+                
+                XSSFCell cell2= rowCol.createCell(1, CellType.STRING);
+                cell2.setCellValue("Date");
+                
+                XSSFCell cell3= rowCol.createCell(2, CellType.STRING);
+                cell2.setCellValue("Detail");
+                
+                XSSFCell cell4= rowCol.createCell(3, CellType.STRING);
+                cell2.setCellValue("Total");
+   
+                for (int i = 0; i < tbQL.getColumnCount(); i++) {
+                    XSSFCell cell = rowCol.createCell(i);
+                    cell.setCellValue(tbQL.getColumnName(i));
+                }
+
+                for (int j = 0; j < tbQL.getRowCount(); j++) {
+                    XSSFRow row = sheet.createRow(j);
+                    for (int k = 0; k < tbQL.getColumnCount(); k++) {
+                        XSSFCell cell = row.createCell(k);
+                        if (tbQL.getValueAt(j, k) != null) {
+                            cell.setCellValue(tbQL.getValueAt(j, k).toString());
+                        }
+                    }
+                }
+                FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+                workbook.write(out);
+                workbook.close();
+                out.close();
+                openFile(saveFile.toString());
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "error");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+
+
+    }//GEN-LAST:event_btnInTKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,12 +290,12 @@ public class Status extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnGiam;
+    private javax.swing.JButton btnInTK;
+    private javax.swing.JButton btnSortNgay;
+    private javax.swing.JButton btnSortThang;
+    private javax.swing.JButton btnTang;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbQL;
     // End of variables declaration//GEN-END:variables
 }

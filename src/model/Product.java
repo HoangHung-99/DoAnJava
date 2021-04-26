@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package model;
+
 import static database.Connectdb.DB_URL;
 import static database.Connectdb.PASS_WORD;
 import static database.Connectdb.USER_NAME;
@@ -12,11 +13,14 @@ import static java.sql.DriverManager.getConnection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 /**
  *
  * @author Thinh
  */
 public class Product {
+
+    private Integer ID;
     private String Name;
     private Double Price;
     private Integer CategoryID;
@@ -46,6 +50,14 @@ public class Product {
         this.Price = Price;
     }
 
+    public Product(Integer id, String Name, Double Price, Integer CategoryID, Integer Quantity) {
+        this.ID = id;
+        this.Name = Name;
+        this.Price = Price;
+        this.CategoryID = CategoryID;
+        this.Quantity = Quantity;
+    }
+
     public Product(String Name, Double Price, Integer CategoryID, Integer Quantity) {
         this.Name = Name;
         this.Price = Price;
@@ -54,6 +66,14 @@ public class Product {
     }
 
     public Product() {
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
     }
 
     public Integer getCategoryID() {
@@ -86,7 +106,7 @@ public class Product {
         try {
             Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
             Statement stmt = conn.createStatement();
-            String stament = "UPDATE product SET Price=" + product.getPrice() + ", CategoryID=" + product.getCategoryID() + ", Quantity=" + product.getQuantity() + " WHERE Name='" + product.getName() + "'";
+            String stament = "UPDATE product SET Price=" + product.getPrice() + ", CategoryID=" + product.getCategoryID() + ", Name='" + product.getName() + "', Quantity=" + product.getQuantity() + " WHERE ID=" + product.getID();
             System.out.println(stament);
             int rs = stmt.executeUpdate(stament);
 
@@ -99,11 +119,11 @@ public class Product {
 
     }
 
-    public static boolean deleteProduct(String name) {
+    public static boolean deleteProduct(Integer id) {
         try {
             Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
             Statement stmt = conn.createStatement();
-            String stament = "DELETE FROM product WHERE Name='" + name + "'";
+            String stament = "DELETE FROM product WHERE ID='" + id + "'";
             System.out.println(stament);
             boolean rs;
             rs = stmt.execute(stament);
