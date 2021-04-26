@@ -26,7 +26,7 @@ CREATE TABLE `category` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Name` text NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Cafe'),(2,'Nước ép'),(3,'Mojito'),(4,'Nước giải khát'),(5,'Tequila');
+INSERT INTO `category` VALUES (1,'Cafe'),(2,'Nước ép'),(3,'Mojito'),(4,'Nước giải khát'),(5,'Tequila'),(6,'nước'),(7,'nước 2');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +80,7 @@ CREATE TABLE `login` (
   `Email` varchar(100) DEFAULT NULL,
   `Sex` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'admin','admin','Tien','1',NULL,NULL,NULL),(2,'test','test','Tien Test','2',NULL,NULL,NULL),(3,'test1','test1','test','2',NULL,NULL,NULL),(4,'admin1','admin1','Tien ne','4',NULL,NULL,NULL),(7,'anh','anh','aloalo','3',NULL,NULL,NULL);
+INSERT INTO `login` VALUES (1,'admin','admin','Tien','1',NULL,NULL,NULL),(2,'test','test','Tien Test','2',NULL,NULL,NULL),(3,'test1','test1','test','2',NULL,NULL,NULL),(4,'admin1','admin1','Tien ne','4',NULL,NULL,NULL),(7,'anh','anh','aloalo','3',NULL,NULL,NULL),(8,'wangk','123456','Nguyễn Nhựt Quang','2','0356809728','n.nquanght@gmail.com','Nam');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +109,7 @@ CREATE TABLE `product` (
   PRIMARY KEY (`ID`),
   KEY `CategoryID` (`CategoryID`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`CategoryID`) REFERENCES `category` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +135,7 @@ CREATE TABLE `receipt` (
   `Detail` text NOT NULL,
   `Total` int NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,7 @@ CREATE TABLE `receipt` (
 
 LOCK TABLES `receipt` WRITE;
 /*!40000 ALTER TABLE `receipt` DISABLE KEYS */;
-INSERT INTO `receipt` VALUES (6,'01:59 11-04-2021 ','Bàn B12_[Mì Hoành Thánh_1_10000.0,Cơm sườn_1_10000.0,Cơm tấm_1_10000.0,Bò Né_1_10000.0,]Bàn B12_[Mì Hoành Thánh_1_10000.0,Cơm sườn_1_10000.0,Cơm tấm_1_10000.0,Bò Né_1_10000.0,]',80000),(7,'02:00 11-04-2021 ','Bàn B12_[Mì Hoành Thánh_1_10000.0,Cơm tấm_1_10000.0,Mì xào bò_1_20000.0,Bánh mì thập cẩm_1_15000.0,Cocktail_1_50000.0,Aquafina_1_5000.0,C2_1_10000.0,]Bàn B12_[Mì Hoành Thánh_1_10000.0,Cơm tấm_1_10000.0,Mì xào bò_1_20000.0,Bánh mì thập cẩm_1_15000.0,Cocktail_1_50000.0,Aquafina_1_5000.0,C2_1_10000.0,]',240000),(8,'02:04 11-04-2021 ','Bàn B12_[Gà sốt tiêu đen_1_10000.0,Mì Quảng_1_10000.0,Cơm sườn_1_10000.0,Bánh Mì Chả Cá_1_15000.0,Bò Né_1_10000.0,Bánh mì thập cẩm_1_15000.0,]Bàn B12_[Gà sốt tiêu đen_1_10000.0,Mì Quảng_1_10000.0,Cơm sườn_1_10000.0,Bánh Mì Chả Cá_1_15000.0,Bò Né_1_10000.0,Bánh mì thập cẩm_1_15000.0,]',140000),(9,'02:11 11-04-2021 ','Bàn A1_[Gà sốt tiêu đen_1_10000.0,Mì Hoành Thánh_1_10000.0,Cơm sườn_1_10000.0,Mì Quảng_1_10000.0,Bánh mì thập cẩm_1_15000.0,Bò Né_1_10000.0,Bánh Mì Chả Cá_1_15000.0,]Bàn A1_[Gà sốt tiêu đen_1_10000.0,Mì Hoành Thánh_1_10000.0,Cơm sườn_1_10000.0,Mì Quảng_1_10000.0,Bánh mì thập cẩm_1_15000.0,Bò Né_1_10000.0,Bánh Mì Chả Cá_1_15000.0,]',160000),(10,'02:12 11-04-2021 ','Bàn B12_[Mì Hoành Thánh_1_10000.0,Gà sốt tiêu đen_1_10000.0,Mì Quảng_1_10000.0,]Bàn B12_[Mì Hoành Thánh_1_10000.0,Gà sốt tiêu đen_1_10000.0,Mì Quảng_1_10000.0,]',60000),(11,'02:16 11-04-2021 ','Bàn B12_[Gà sốt tiêu đen_1_10000.0,Mì Quảng_1_10000.0,Mì xào bò_1_20000.0,Bánh mì thập cẩm_1_15000.0,Bánh mì trứng_1_15000.0,Mì Hoành Thánh_1_10000.0,Cơm tấm_1_10000.0,Cơm sườn_1_10000.0,Bánh Mì Chả Cá_1_15000.0,Bò kho_1_10000.0,]Bàn B12_[Gà sốt tiêu đen_1_10000.0,Mì Quảng_1_10000.0,Mì xào bò_1_20000.0,Bánh mì thập cẩm_1_15000.0,Bánh mì trứng_1_15000.0,Mì Hoành Thánh_1_10000.0,Cơm tấm_1_10000.0,Cơm sườn_1_10000.0,Bánh Mì Chả Cá_1_15000.0,Bò kho_1_10000.0,]',125000),(12,'02:18 11-04-2021 ','Bàn B12_[Cơm tấm_1_10000.0,Bò kho_1_10000.0,Bánh mì thập cẩm_1_15000.0,Mì Quảng_1_10000.0,]Bàn B12_[Cơm tấm_1_10000.0,Bò kho_1_10000.0,Bánh mì thập cẩm_1_15000.0,Mì Quảng_1_10000.0,]',45000),(13,'02:19 11-04-2021 ','Bàn B12_[Mì Hoành Thánh_1_10000.0,Cơm tấm_1_10000.0,Cơm sườn_1_10000.0,Bánh mì trứng_1_15000.0,]Bàn B12_[Mì Hoành Thánh_1_10000.0,Cơm tấm_1_10000.0,Cơm sườn_1_10000.0,Bánh mì trứng_1_15000.0,]',45000);
+INSERT INTO `receipt` VALUES (14,'10:28 26-04-2021 ','Cafe Phin_1_30000.0,Cafe Sữa_3_35000.0,Bạc Xỉu_2_38000.0,Cafe Mocha_4_45000.0,',391000),(15,'10:46 26-04-2021 ','Cafe Cappucino_1_50000.0,Bạc Xỉu_4_38000.0,Cafe Sữa_1_35000.0,',237000),(18,'10:47 26-04-2021 ','Cafe Sữa_1_35000.0,Bạc Xỉu_2_38000.0,Cafe Mocha_1_45000.0,Cafe Latte_1_45000.0,',201000),(19,'10:47 26-04-2021 ','Cafe Phin_2_30000.0,Cafe Latte_2_45000.0,Cafe Mocha_2_45000.0,',240000);
 /*!40000 ALTER TABLE `receipt` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -157,4 +157,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-25 22:40:16
+-- Dump completed on 2021-04-26 13:02:52

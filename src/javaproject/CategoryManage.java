@@ -268,7 +268,7 @@ public class CategoryManage extends javax.swing.JFrame {
         Category.addNewCategory(cate);
         NapDataVaoTable();
         JOptionPane.showMessageDialog(this, "Thêm loại sản phẩm thành công!");
-        call_dialog.dispose();
+//        call_dialog.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

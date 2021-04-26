@@ -343,7 +343,7 @@ public class UserManager extends javax.swing.JFrame {
             User.addUser(user);
             NapDataVaoTable();
             JOptionPane.showMessageDialog(this, "Thêm người dùng thành công!");
-            call_dialog.dispose();
+//            call_dialog.dispose();
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 

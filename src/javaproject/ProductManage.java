@@ -27,12 +27,14 @@ import model.Product;
  * @author NguyenHoangHung
  */
 public class ProductManage extends javax.swing.JFrame {
+
     private String sLoiNapDuLieu = "Lỗi nạp dữ liệu.";
     private String sLuuThanhCong = "Lưu dữ liệu thành công.";
     private String sLuuKhongThanhCong = "Lưu dữ liệu không thành công.";
-    
+
     public JDialog call_dialog;
     public JTable load_tTable;
+
     /**
      * Creates new form ProductManage
      */
@@ -44,27 +46,26 @@ public class ProductManage extends javax.swing.JFrame {
         btnCancel.setEnabled(false);
         lbl_ID_Product.setVisible(false);
     }
-    
-    private void NapDataVaoCBB(){
+
+    private void NapDataVaoCBB() {
         try {
             Connection conn = getConnection(DB_URL, USER_NAME, PASS_WORD);
             Statement stmt = conn.createStatement();
             String sSelect = "SELECT Name From category";
             ResultSet rs;
             rs = stmt.executeQuery(sSelect);
-            if(rs ==null)
-            {
-                JOptionPane.showConfirmDialog(this,sLoiNapDuLieu);
+            if (rs == null) {
+                JOptionPane.showConfirmDialog(this, sLoiNapDuLieu);
                 return;
             }
-            while(rs.next()){
+            while (rs.next()) {
                 cbbCategory.addItem(rs.getString(1));
             }
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(this,sLoiNapDuLieu);
+            JOptionPane.showConfirmDialog(this, sLoiNapDuLieu);
         }
     }
-    
+
     private void NapDataVaoTable() {
         try {
             DefaultTableModel modelTable = new DefaultTableModel();
@@ -96,19 +97,21 @@ public class ProductManage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, sLoiNapDuLieu);
         }
     }
-    
-    private void NapItemDuocChon(){
-        if (tableSanPham.getSelectedRow() < 0) {            
+
+    private void NapItemDuocChon() {
+        if (tableSanPham.getSelectedRow() < 0) {
             return;
         }
         int row = tableSanPham.getSelectedRow();
         lbl_ID_Product.setText((tableSanPham.getValueAt(row, 0)).toString());
-        txtProductname.setText((String)tableSanPham.getValueAt(row, 1));
+        txtProductname.setText((String) tableSanPham.getValueAt(row, 1));
         txtAmount.setText((tableSanPham.getValueAt(row, 4)).toString());
         txtPrice.setText((tableSanPham.getValueAt(row, 2)).toString());
-        for(int i=0;i<cbbCategory.getItemCount();i++)
-            if(cbbCategory.getItemAt(i).equals((String)tableSanPham.getValueAt(row, 3)))
+        for (int i = 0; i < cbbCategory.getItemCount(); i++) {
+            if (cbbCategory.getItemAt(i).equals((String) tableSanPham.getValueAt(row, 3))) {
                 cbbCategory.setSelectedIndex(i);
+            }
+        }
     }
 
     /**
@@ -277,10 +280,7 @@ public class ProductManage extends javax.swing.JFrame {
 
         tableSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -313,8 +313,8 @@ public class ProductManage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -329,10 +329,16 @@ public class ProductManage extends javax.swing.JFrame {
         CategoryID++;
         int Quantity = Integer.parseInt(txtAmount.getText());
         Product prod = new Product(Name, Price, CategoryID, Quantity);
-            Product.addNewProduct(prod);
-            NapDataVaoTable();
-            JOptionPane.showMessageDialog(this, "Thêm người dùng thành công!");
-            call_dialog.dispose();
+        Product.addNewProduct(prod);
+        NapDataVaoTable();
+        JOptionPane.showMessageDialog(this, "Thêm người dùng thành công!");
+//            call_dialog.dispose();
+
+        btnAdd.setEnabled(true);
+        btnEdit.setEnabled(true);
+        btnDelete.setEnabled(true);
+        btnCancel.setEnabled(false);
+        btnSave.setEnabled(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -354,8 +360,8 @@ public class ProductManage extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        if (tableSanPham.getSelectedRow() < 0) { 
-            JOptionPane.showMessageDialog(this,"Phải chọn một dòng để sửa!");
+        if (tableSanPham.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Phải chọn một dòng để sửa!");
             return;
         }
         int id = Integer.parseInt(lbl_ID_Product.getText());
@@ -364,7 +370,7 @@ public class ProductManage extends javax.swing.JFrame {
         int CategoryID = cbbCategory.getSelectedIndex();
         CategoryID++;
         int Quantity = Integer.parseInt(txtAmount.getText());
-        Product prod = new Product(id,Name, Price, CategoryID, Quantity);
+        Product prod = new Product(id, Name, Price, CategoryID, Quantity);
         Product.updateNewProduct(prod);
         NapDataVaoTable();
     }//GEN-LAST:event_btnEditActionPerformed
@@ -376,8 +382,8 @@ public class ProductManage extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        if (tableSanPham.getSelectedRow() < 0) { 
-            JOptionPane.showMessageDialog(this,"Phải chọn một dòng để xóa!");
+        if (tableSanPham.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Phải chọn một dòng để xóa!");
             return;
         }
         int id = Integer.parseInt(lbl_ID_Product.getText());
